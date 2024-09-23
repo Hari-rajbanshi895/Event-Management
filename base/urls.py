@@ -16,8 +16,6 @@ urlpatterns = [
     path('Suppliers/<int:pk>/',SuppliersViewset.as_view({'get':'retrive','put':'update','delete':'destory'})),
     path('group/',group_listing),
     path('login/',login),
-    path('register/',register),
-    path('initiate-payment/', initiate_payment),
-    path('verify-payment/', verify_payment),
-
+    path('register/',register)
+    
 ]

@@ -133,6 +133,4 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-KHALTI_PUBLIC_KEY = 'your_khalti_public_key'
-KHALTI_SECRET_KEY = 'your_khalti_secret_key'
-KHALTI_URL = 'https://khalti.com/api/v2/epay/transact/'  
+
