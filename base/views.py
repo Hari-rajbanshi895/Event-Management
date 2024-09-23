@@ -134,48 +134,5 @@ class SellViewset(ModelViewSet):
     serializer_class = SellSerializer
     permission_classes = [CustomPermissions]
 
-@api_view(['POST'])
-def initiate_payment(request):
-    amount = request.data.get('amount')
-    email = request.data.get('email')
 
-    payment_data = {
-        'amount': amount,
-        'email': email,
-    }
-
-    headers = {
-        'Authorization': f"Bearer {settings.KHALTI_SECRET_KEY}"
-    }
-    response = requests.post(settings.KHALTI_URL, data=payment_data, headers=headers)
-
-    if response.status_code == 200:
-        response_data = response.json()
-        payment_url = response_data.get('payment_url')
-        payment_id = response_data.get('token')  
-        Payment.objects.create(payment_id=payment_id, amount=amount)
-        return JsonResponse({'payment_url': payment_url})
-    else:
-        return Response({'error': 'Failed to initiate payment'}, status=response.status_code)
-
-@api_view(['POST'])
-def verify_payment(request):
-    token = request.data.get('token')
-
-    headers = {
-        'Authorization': f"Bearer {settings.KHALTI_SECRET_KEY}"
-    }
-    response = requests.get(f"{settings.KHALTI_URL}/{token}/", headers=headers)
-
-    if response.status_code == 200:
-        payment_info = response.json()
-        payment = Payment.objects.filter(payment_id=token).first()
-
-        if payment:
-            payment.status = 'success' if payment_info['status'] == 'Completed' else 'failed'
-            payment.save()
-        
-        return JsonResponse({'status': 'Payment verified', 'data': payment_info})
-    else:
-        return Response({'error': 'Payment verification failed'}, status=response.status_code)
 
