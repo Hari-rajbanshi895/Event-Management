@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import ProductType, Product, Purchase, Sell, Department, Customer, Suppliers, Payment
+from .models import ProductType, Product, Purchase, Sell, Department, Customer, Suppliers
 from rest_framework.viewsets import ModelViewSet
 from .serializers import ProductTypeSerializer, ProductSerializer, UserSerializer, CustomerSerializer, PurchaseSerializer, SellSerializer,DepartmentSerializer, GroupSerializer
 from rest_framework.generics import GenericAPIView
