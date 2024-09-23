@@ -47,15 +47,4 @@ class Department(models.Model):
     name = models.CharField(max_length=300)
     floor = models.IntegerField()
 
-class Payment(models.Model):
-    PAYMENT_STATUS_CHOICES = [
-        ('success', 'Success'),
-        ('failed', 'Failed'),
-        ('pending', 'Pending'),
-    ]
 
-    payment_id = models.CharField(max_length=300, unique=True)
-    amount = models.FloatField()
-    status = models.CharField(max_length=10, choices=PAYMENT_STATUS_CHOICES, default='pending')
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
